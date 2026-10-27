@@ -12,7 +12,8 @@ import { createReadStream, existsSync, statSync } from "node:fs";
 import { extname, join, normalize, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const ROOT = resolve(fileURLToPath(new URL(".", import.meta.url)));
+const DEFAULT_ROOT = resolve(fileURLToPath(new URL("..", import.meta.url)));
+const ROOT = resolve(process.env.SERVE_DIR || DEFAULT_ROOT);
 const PORT = Number(process.env.PORT || 3400);
 const HOST = process.env.HOST || "127.0.0.1";
 

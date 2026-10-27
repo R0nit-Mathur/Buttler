@@ -16,7 +16,7 @@ belong to **Shader Sweden AB**. Do not use it commercially.
 ## Run it
 
 ```bash
-node server.mjs
+node scripts/serve.mjs
 # → http://127.0.0.1:3400
 ```
 
@@ -25,7 +25,7 @@ node server.mjs
 No dependencies, Node.js 20+ only. `PORT` and `HOST` can be overridden:
 
 ```bash
-PORT=5000 node server.mjs
+PORT=5000 node scripts/serve.mjs
 ```
 
 ## What is included
@@ -41,9 +41,30 @@ PORT=5000 node server.mjs
 | `videos/prebaked/` | Handshake AVIF sprite sheets + manifests (desktop and mobile) |
 | `draco/` | Draco decoder for the compressed GLB models |
 | `api/mux-image/` | Locally mirrored Mux video poster frames for the carousel |
-| `server.mjs` | Zero-dependency static server with clean URLs, range requests and correct MIME types |
+| `scripts/serve.mjs` | Zero-dependency local server with clean URLs, range requests and correct MIME types |
+| `scripts/build.mjs` | Copies the deployable site into `dist/` (static output) |
+| `vercel.json` | Forces Vercel to deploy `dist/` as a static site instead of running the server as a function |
 | `noop-analytics.js` | Empty local replacement for the removed analytics loader |
+| `.nojekyll` | Written into `dist/` so GitHub Pages does not hide the `_next` folder |
 | `reference/` | Local recon evidence (DOM dumps, screenshots, network manifest); git-ignored |
+
+## Deployment
+
+The repo is a static site, not a Node server. The custom server is only for
+local development; running it on a serverless host makes the host trace only the
+entry module, which is why an earlier Vercel deployment served HTML but 404'd
+every asset.
+
+`vercel.json` therefore runs `node scripts/build.mjs` and publishes `dist/`:
+
+```bash
+pnpm build          # or: node scripts/build.mjs
+SERVE_DIR=dist PORT=3400 node scripts/serve.mjs
+```
+
+Vercel will rebuild automatically on push. The deployed site must be served from
+the domain root, because the original bundle references assets with absolute
+paths such as `/_next/...`.
 
 ## Fidelity notes
 

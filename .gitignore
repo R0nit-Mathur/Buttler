@@ -9,3 +9,4 @@ reference/
 # Local logs
 *.log
 temp/
+dist/
