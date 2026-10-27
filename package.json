@@ -1,0 +1,14 @@
+{
+  "name": "shader-se-clone",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A 1:1 local clone of https://www.shader.se — a WebGL scrollytelling site by Shader Development Studio",
+  "type": "module",
+  "scripts": {
+    "dev": "node server.mjs",
+    "start": "node server.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

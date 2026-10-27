@@ -1,0 +1,11 @@
+node_modules/
+.DS_Store
+Thumbs.db
+
+# Scraping/reconnaissance evidence (DOM dumps, downloaded reference CSS/JS,
+# comparison screenshots). Not part of the published clone.
+reference/
+
+# Local logs
+*.log
+temp/
